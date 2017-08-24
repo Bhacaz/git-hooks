@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# This line is useful when using a Git interface like SourceTree
+#	because it modify the $PATH
+source ~/.bash_profile
+
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+NC='\033[0m'
+
+##### Running Rspec for diff files *_spec.rb beetween local and remote #####
+##### WARNING after merging this could create a lot of diff files 	   #####
+SPECS=$(git diff --cached --name-only --diff-filter=AMC @{upstream} | grep  ".*\_spec.rb$" | cut -d " " -f2-)
+printf "${green}\n[RSpec][Info]: Running modified tests\n${NC}"
+if [ -n "$SPECS" ]; then
+	printf "${yellow}[RSpec][Files]:\n"
+	printf "\t%s\n" ${SPECS[@]}; printf "\n${NC}"
+ 	bundle exec rspec ${SPECS}
+
+	if [ $? -ne 0 ]; then
+	  printf "${red}[RSpec][Error]: Fix the issues and commit again\n\n${NC}"
+	  exit 1
+	fi
+else
+	printf "${green}[RSpec][Info]: No test found.\n${NC}"
+fi
+
+exit 0
