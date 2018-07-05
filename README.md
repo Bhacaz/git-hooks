@@ -1,6 +1,6 @@
 # git-hooks
 
-To enable the hooks, copy the scripts into your `{git-project-folder}/.git/hooks`
+To enable the hooks, copy the scripts into your `{git-project-folder}/.git/hooks` and make it executable (`sudo chmod +x {hook_script}`.
 
 ## General
 ### prepare-commit-msg (Ruby script)
