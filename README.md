@@ -18,7 +18,3 @@ Run _rubocop_ and auto correct Ruby files, add those corrections to commit.
 
 ### pre-push (Bash script)
 Run RSsec on _*spec.rb_ file that differ of the remote branche.
-
-
-# Also
-[My Git alias](https://gist.github.com/Bhacaz/4f289c9d1962145619ef9c9f874afdce)
