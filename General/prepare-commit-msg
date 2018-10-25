@@ -4,7 +4,8 @@ message_file = ARGV[0]
 message = File.read(message_file)
 
 branch_name = `git symbolic-ref --short HEAD`
-prefix = branch_name[/^\w+_\d+/]
+prefix = branch_name[/^(\w+_\d+)__/]
+prefix = $1
 exit 0 if prefix.nil?
 prefix = prefix.gsub('_', '-')
 
