@@ -20,13 +20,20 @@ if [ -n "$FILES" ]
 then
 	printf "${yellow}[Ruby Style][Files]:\n"
 	printf "\t%s\n" ${FILES[@]}; printf "\n${NC}"
+	
+	FILES2=$(git diff --cached --name-only --diff-filter=A | grep "\.rb$" | cut -d " " -f2-)
+	for f in ${FILES2}; do
+		./.git/hooks/add_frozen_string.rb $f
+	done
+
 	# Run rubocop on the staged files
 	rubocop -aR ${FILES}
-	
+
 	if [ $? -ne 0 ]; then
 	  printf "${red}[Ruby Style][Error]: Fix the issues and commit again\n\n${NC}"
 	  exit 1
 	fi
+
 else
 	printf "${green}[Ruby Style][Info]: No files to check \n${NC}"
 fi
