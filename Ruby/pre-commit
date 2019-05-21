@@ -27,7 +27,7 @@ then
 	done
 
 	# Run rubocop on the staged files
-	rubocop -aR ${FILES}
+	bundle exec rubocop -aR ${FILES}
 
 	if [ $? -ne 0 ]; then
 	  printf "${red}[Ruby Style][Error]: Fix the issues and commit again\n\n${NC}"
